@@ -71,3 +71,23 @@ index b30f2cf..f1ce01e 100644
 Running Gradle task 'assembleRelease'...                            3.6s
 ✓  Built build/app/outputs/flutter-apk/app-release.apk (16.5MB).
 ```
+
+## firebase.toolsのインストール
+
+`FIREBASE_TOKEN`を生成する為に、firebase.toolsをインストールする
+
+```zsh
+% curl -sL https://firebase.tools | bash
+Password: PCのログインパスワードを入れるといいみたい
+-- Checking for existing firebase-tools on PATH...
+-- Checking your machine type...
+-- Downloading binary from https://firebase.tools/bin/macos/latest
+######################################################################## 100.0%##-=#=-#
+-- Setting permissions on binary...
+-- Checking your PATH variable...
+-- firebase-tools@10.7.2 is now installed
+-- All Done!
+```
+
+`firebase login:ci`コマンドを叩くとブラウザが起動する。
+アカウント選択画面になるので、選択したアカウントをもってアクセスをリクエストする。
