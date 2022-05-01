@@ -5,25 +5,35 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
-import 'package:flutter/material.dart';
+import 'dart:ui';
+
 import 'package:flutter_puzzle/main.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
+  testWidgets('スタート画面が表示される', (WidgetTester tester) async {
+    // ここにテスト内容を書く
+    await tester.binding.setSurfaceSize(const Size(400, 800));
     await tester.pumpWidget(const PuzzleApp());
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    expect(find.text('スライドパズル'), findsOneWidget);
+    expect(find.text('スタート'), findsOneWidget);
+  });
+  testWidgets('スタートボタンをタップすると、パズル画面が表示される', (WidgetTester tester) async {
+    await tester.binding.setSurfaceSize(const Size(400, 800));
+    await tester.pumpWidget(const PuzzleApp());
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    await tester.tap(find.text('スタート'));
+    await tester.pumpAndSettle();
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
     expect(find.text('1'), findsOneWidget);
+    expect(find.text('2'), findsOneWidget);
+    expect(find.text('3'), findsOneWidget);
+    expect(find.text('4'), findsOneWidget);
+    expect(find.text('5'), findsOneWidget);
+    expect(find.text('6'), findsOneWidget);
+    expect(find.text('7'), findsOneWidget);
+    expect(find.text('8'), findsOneWidget);
+    expect(find.text('シャッフル'), findsOneWidget);
   });
 }
