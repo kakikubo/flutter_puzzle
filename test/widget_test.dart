@@ -16,7 +16,7 @@ void main() {
     await tester.binding.setSurfaceSize(const Size(400, 800));
     await tester.pumpWidget(const PuzzleApp());
 
-    final titleFinder = find.text('スライドパズル');
-    final buttonFinder = find.text('スタート');
+    expect(find.text('スライドパズル'), findsOneWidget);
+    expect(find.text('スタート'), findsOneWidget);
   });
 }
