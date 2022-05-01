@@ -48,5 +48,19 @@ jobs:
         with:
           name: apk
           path: build/app/outputs/flutter-apk/app-release.apk
+  deploy-android:
+    needs: build-android
+    name: deploy android on firebase
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: apk
+      - run: curl -sL https://firebase.tools | bash
+      - run: firebase appdistribution:distribute app-release.apk --app $APP_ID --groups $TESTER_GROUP
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          APP_ID: 1:508203909874:android:2ed546b59941f00ebe466b
+          TESTER_GROUP: my-test-group
 
 
