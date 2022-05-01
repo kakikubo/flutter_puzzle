@@ -5,10 +5,15 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
+import 'dart:ui';
+
+import 'package:flutter_puzzle/main.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   testWidgets('スタート画面が表示される', (WidgetTester tester) async {
     // ここにテスト内容を書く
+    await tester.binding.setSurfaceSize(const Size(400, 800));
+    await tester.pumpWidget(const PuzzleApp());
   });
 }
