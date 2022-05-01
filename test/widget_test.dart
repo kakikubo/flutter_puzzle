@@ -19,4 +19,21 @@ void main() {
     expect(find.text('スライドパズル'), findsOneWidget);
     expect(find.text('スタート'), findsOneWidget);
   });
+  testWidgets('スタートボタンをタップすると、パズル画面が表示される', (WidgetTester tester) async {
+    await tester.binding.setSurfaceSize(const Size(400, 800));
+    await tester.pumpWidget(const PuzzleApp());
+
+    await tester.tap(find.text('スタート'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('1'), findsOneWidget);
+    expect(find.text('2'), findsOneWidget);
+    expect(find.text('3'), findsOneWidget);
+    expect(find.text('4'), findsOneWidget);
+    expect(find.text('5'), findsOneWidget);
+    expect(find.text('6'), findsOneWidget);
+    expect(find.text('7'), findsOneWidget);
+    expect(find.text('8'), findsOneWidget);
+    expect(find.text('シャッフル'), findsOneWidget);
+  });
 }
