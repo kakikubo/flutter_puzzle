@@ -1,0 +1,66 @@
+name: Flutter CI/CD
+on: [push]
+jobs:
+  widget_test:
+    name: flutter test
+    runs-on: ubuntu-latest
+    steps:
+      - name: set up repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+      - uses: subosito/flutter-action@v2
+        with:
+         channel: 'stable'
+      - name: flutter pub get
+        run: flutter pub get
+      - name: flutter test
+        run: flutter test
+  build-android:
+    name: build flutter for android
+    runs-on: ubuntu-latest
+    steps:
+      - name: set up repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+      - uses: subosito/flutter-action@v2
+        with:
+         channel: 'stable'
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '12.x'
+      - run: |
+          KEYSTORE_PATH=$RUNNER_TEMP/keystore.jks
+          echo -n $KEYSTORE | base64 --decode > $KEYSTORE_PATH
+
+          KEY_PROPERTIES_PATH=android/key.properties
+          echo "storePassword=$STORE_PASSWORD" >> $KEY_PROPERTIES_PATH
+          echo "keyPassword=$KEY_PASSWORD"     >> $KEY_PROPERTIES_PATH
+          echo "keyAlias=alias"                >> $KEY_PROPERTIES_PATH
+          echo "storeFile=$KEYSTORE_PATH"      >> $KEY_PROPERTIES_PATH
+        env:
+          KEYSTORE: ${{ secrets.KEYSTORE }}
+          STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+      - run: flutter build apk
+      - uses: actions/upload-artifact@v2
+        with:
+          name: apk
+          path: build/app/outputs/flutter-apk/app-release.apk
+  deploy-android:
+    needs: build-android
+    name: deploy android on firebase
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: apk
+      - run: curl -sL https://firebase.tools | bash
+      - run: firebase appdistribution:distribute app-release.apk --app $APP_ID --groups $TESTER_GROUP
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          APP_ID: 1:508203909874:android:2ed546b59941f00ebe466b
+          TESTER_GROUP: my-test-group
+
+
