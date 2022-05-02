@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "508203909874",
+    "project_id": "flutterpuzzle-fa85b",
+    "storage_bucket": "flutterpuzzle-fa85b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:508203909874:android:2ed546b59941f00ebe466b",
+        "android_client_info": {
+          "package_name": "com.example.flutter_puzzle"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "508203909874-jencakhp6bht7ir9eaoln0uud4k0n4ia.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADSLL2fWJUoaONCiP0DYlqY9kb1xtAf0M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "508203909874-jencakhp6bht7ir9eaoln0uud4k0n4ia.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
